@@ -120,16 +120,19 @@
 <div class="section" id="home">
   <h2>வரவேற்பு</h2>
   <p>EuroTamil Radio — ஐரோப்பாவின் முன்னணி ஆன்லைன் தமிழ் வானொலி. இசை, செய்திகள், பேட்டிகள், கலாச்சார நிகழ்ச்சிகள், தொண்டு தகவல்கள் என அனைத்தும் 24/7 ஒலிபரப்பாகின்றன.</p>
-  <a href="http://192.168.1.77:8000/stream" class="play-btn" target="_blank">▶ LIVE RADIO</a>
+  <a href="#" class="play-btn" id="live-btn">
+  ▶ LIVE RADIO
+  </a>
 
   <!-- HTML5 Audio Player -->
-  <audio controls style="width:100%; margin-top:20px;">
-    <source src="http://192.168.1.77:8000/stream" type="audio/mpeg">
-    உங்கள் உலாவியில் ஆடியோ இயங்கவில்லை.
+  <audio id="radio-player"
+       controls
+       style="width:100%; margin-top:20px;"
+       src="http://192.168.1.77:8000/stream">
+  உங்கள் உலாவியில் ஆடியோ இயங்கவில்லை.
   </audio>
 </div>
  
-
 <div class="section" id="programs">
   <h2>நிரல்கள்</h2>
   <ul>
@@ -156,6 +159,23 @@
 <div class="footer">
   © 2025 EuroTamil Radio — All Rights Reserved
 </div>
+
+<script>
+  const audio = document.getElementById('radio-player');
+  const btn   = document.getElementById('live-btn');
+
+  btn.addEventListener('click', function (event) {
+    event.preventDefault(); // stop link from navigating
+
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = '⏸ LIVE RADIO';
+    } else {
+      audio.pause();
+      btn.textContent = '▶ LIVE RADIO';
+    }
+  });
+</script>
 
 </body>
 </html>
