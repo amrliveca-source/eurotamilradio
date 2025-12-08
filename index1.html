@@ -63,7 +63,7 @@
       font-size: 1.2rem;
       color: #fff;
     }
-    
+
     /* Glass effect nav menu */
     nav {
       background: rgba(255,255,255,0.05);
@@ -75,7 +75,8 @@
       z-index: 10;
       border-bottom: 1px solid rgba(255,255,255,0.2);
     }
-nav a {
+
+    nav a {
       color: #ff4d4d;
       margin: 0 15px;
       text-decoration: none;
@@ -83,43 +84,13 @@ nav a {
       font-weight: bold;
       transition: 0.3s;
     }
-nav a:hover {
+
+    nav a:hover {
       color: #fff;
       text-shadow: 0 0 10px #ff4d4d;
     }
-    header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      background: #1a1a1a;
-      padding: 25px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-    }
-    header img {
-      width: 120px;
-      height: auto;
-    }
-    header h1 {
-      font-size: 2rem;
-      margin: 0;
-      color: #ff3b3b;
-    }
-    nav {
-      background: #262626;
-      padding: 14px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    nav a {
-      color: #ff4d4d;
-      margin: 0 18px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-     /* 🔥 Hero Section with Light Sweep */
+
+    /* 🔥 Hero Section with Light Sweep */
     .hero {
       height: 340px;
       display: flex;
@@ -143,10 +114,12 @@ nav a:hover {
       background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
       animation: lightMove 6s infinite;
     }
+
     @keyframes lightMove {
       0% { left: -100%; }
       100% { left: 200%; }
     }
+
     .section {
       max-width: 900px;
       margin: 40px auto;
@@ -155,13 +128,13 @@ nav a:hover {
       border-radius: 15px;
       box-shadow: 0 4px 25px rgba(0,0,0,0.7);
       backdrop-filter: blur(6px);
-      }
+    }
 
     .section h2 {
       color: #ff4646;
       margin-top: 0;
     }
-    
+
     .play-btn {
       display: block;
       background: #ff3b3b;
@@ -191,7 +164,7 @@ nav a:hover {
       margin-top: 20px;
       height: 50px;
     }
-    .he
+
     .audio-waves span {
       width: 4px;
       background: #ff3b3b;
@@ -210,114 +183,74 @@ nav a:hover {
       0%, 100% { height: 10px; }
       50% { height: 50px; }
     }
-    .audio-waves span {
-      width: 4px;
-      background: #ff3b3b;
-      display: inline-block;
-      animation: wave 1s infinite ease-in-out;
-      border-radius: 2px;
-    }
 
-    .audio-waves span:nth-child(1) { animation-delay: 0s; }
-    .audio-waves span:nth-child(2) { animation-delay: 0.1s; }
-    .audio-waves span:nth-child(3) { animation-delay: 0.2s; }
-    .audio-waves span:nth-child(4) { animation-delay: 0.3s; }
-    .audio-waves span:nth-child(5) { animation-delay: 0.4s; }
-
-    @keyframes wave {
-      0%, 100% { height: 10px; }
-      50% { height: 50px; }
-    } {
-      height: 380px;
-      background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4');
-      background-size: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 2.4rem;
-      font-weight: bold;
-      text-shadow: 3px 3px 6px #000;
-    }
-    .section {
-      max-width: 900px;
-      margin: 40px auto;
-      background: #1b1b1b;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    }
-    .section h2 {
-      color: #ff3b3b;
-      margin-top: 0;
-    }
-   .play-btn {
-      display: block;
-      background: #ff3b3b;
-      color: white;
-      padding: 14px 22px;
-      margin: 20px auto;
-      width: 220px;
-      text-align: center;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-</div>
     .footer {
-      background: #111;
-      padding: 25px;
       text-align: center;
+      padding: 25px;
+      color: #888;
       margin-top: 40px;
-      color: #777;
-      font-size: 0.9rem;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(5px);
     }
-  </style>
-  <style>
-    /* Animated Sound Wave Background */
-    .soundwave-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-      background: #0d0d0d;
-    }
-    .bar {
-      position: absolute;
-      bottom: 0;
-      width: 4px;
-      background: #ff3b3b;
-      animation: bounce 1.2s infinite ease-in-out;
-    }
-    @keyframes bounce {
-      0%, 100% { height: 10px; }
-      50% { height: 120px; }
+
+    /* 📱 FULL MOBILE RESPONSIVE FIX */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header img {
+        width: 110px;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 10px;
+        font-size: 1rem;
+      }
+
+      .hero {
+        height: 260px;
+        font-size: 1.4rem;
+        padding: 10px;
+      }
+
+      .section {
+        margin: 20px 10px;
+      }
+
+      .play-btn {
+        width: 180px;
+      }
+
+      audio {
+        width: 100% !important;
+      }
+
+      /* Mobile waves smaller */
+      .audio-waves {
+        height: 30px;
+      }
+
+      .audio-waves span {
+        width: 3px;
+      }
     }
   </style>
 </head>
+
 <body>
-<div class="soundwave-bg">
-  <script>
-    const bg = document.currentScript.parentElement;
-    for (let i = 0; i < 60; i++) {
-      const bar = document.createElement('div');
-      bar.className = 'bar';
-      bar.style.left = (i * 16) + 'px';
-      bar.style.animationDelay = (i * 0.1) + 's';
-      bg.appendChild(bar);
-    }
-  </script>
-</div>
 
 <header>
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABAAAAAQACAIAAADwf7zUAAECGmNhQlgAAQIaanVtYgAAAB5qdW1kYzJwYQARABCAAACqADibcQNj" alt="EuroTamil Radio Logo">
+  <img src="https://raw.githubusercontent.com/amrliveca-source/eurotamilradio/refs/heads/main/images/WhatsApp%20Image%202025-12-05%20at%2023.59.58.jpeg" alt="EuroTamil Radio Logo">
   <div>
     <h1>EuroTamil Radio</h1>
-    <p>Voice of Europe — Tamil 24/7</p>
+    <subh1>Voice of Europe — Tamil 24/7</subh1>
   </div>
 </header>
 
@@ -332,13 +265,29 @@ nav a:hover {
 
 <div class="section" id="home">
   <h2>வரவேற்பு</h2>
-  <p>EuroTamil Radio — ஐரோப்பாவின் முன்னணி ஆன்லைன் தமிழ் வானொலி. இசை, செய்திகள், பேட்டிகள், கலாச்சார நிகழ்ச்சிகள், தொண்டு தகவல்கள் என அனைத்தும் 24/7 ஒலிபரப்பாகின்றன.</p>
-  <a href="http://192.168.1.77:8000/stream" class="play-btn" target="_blank">▶ LIVE RADIO</a>
+  <p>EuroTamil Radio — ஐரோப்பாவின் முன்னணி ஆன்லைன் தமிழ் வானொலி. இசை, செய்திகள், பேட்டிகள், கலாச்சார நிகழ்ச்சிகள் என 24/7 ஒலிபரப்பு.</p>
 
-  <!-- HTML5 Audio Player -->
-  <audio controls style="width:100%; margin-top:20px;">
-    <source src="http://192.168.1.77:8000/stream" type="audio/mpeg">
+  <a href="#" class="play-btn" id="live-btn">▶ LIVE RADIO</a>
+
+  <audio id="radio-player"
+         controls
+         style="width:100%; margin-top:20px;"
+         src="http://192.168.1.77:8000/stream">
   </audio>
+  document.addEventListener('click', function () {
+    var audio = document.getElementById('radio-player');
+    if (audio.paused) {
+        audio.play().catch(()=>{});
+    }
+});
+
+    }
+});
+
+
+  <div class="audio-waves">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
 </div>
 
 <div class="section" id="programs">
@@ -387,3 +336,4 @@ nav a:hover {
 
 </body>
 </html>
+
