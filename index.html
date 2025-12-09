@@ -3,204 +3,312 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Euro Tamil Radio</title>
-  <style>
+  <title>EuroTamil Radio</title>
+<script>
+const audio = document.getElementById('radio-player');
+const btn = document.getElementById('live-btn');
 
-    /* ===== GLOBAL STUDIO BACKGROUND ===== */
+// iOS autoplay fix (requires user interaction)
+function userInteractPlay() {
+    audio.play().then(() => {
+        btn.textContent = "⏸ LIVE RADIO";
+    }).catch(() => {
+        // Safari may block — but click again will always play
+        console.log("Waiting for user gesture…");
+    });
+}
+
+btn.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    if (audio.paused) {
+        userInteractPlay();
+    } else {
+        audio.pause();
+        btn.textContent = "▶ LIVE RADIO";
+    }
+});
+
+// Auto reconnect if stream stops (Safari fix)
+audio.addEventListener('error', () => {
+    setTimeout(() => {
+        audio.load();
+        audio.play().catch(() => {});
+    }, 2000);
+});
+
+// Android & Safari unlock
+document.addEventListener('touchstart', () => {
+    audio.muted = false;
+}, {passive: true});
+</script>
+
+  <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: url('https://images.unsplash.com/photo-1581276879432-15a19d654956?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
-      color: white;
+      background: #000;
+      color: #eee;
+      overflow-x: hidden;
     }
 
-    /* ===== STUDIO LIGHTING GLOW (BLUE — PURPLE — GOLD) ===== */
-    body:before {
+    /* 🔥 Studio Animated Background */
+    body::before {
       content: "";
       position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 20% 30%, rgba(0,150,255,0.35), transparent),
-                  radial-gradient(circle at 80% 70%, rgba(180,0,255,0.25), transparent),
-                  radial-gradient(circle at 50% 90%, rgba(255,200,0,0.25), transparent);
-      pointer-events: none;
-      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(0,92,255,0.3), transparent),
+                  radial-gradient(circle at 70% 70%, rgba(255,0,180,0.3), transparent);
+      animation: studioLight 8s infinite alternate ease-in-out;
+      z-index: -1;
     }
 
-    /* ===== NAVIGATION MENU ===== */
-    nav {
-      position: relative;
-      z-index: 10;
+    @keyframes studioLight {
+      0% { filter: blur(20px); opacity: 0.6; }
+      100% { filter: blur(40px); opacity: 1; }
+    }
+
+    header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 15px 30px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      gap: 15px;
+      background: rgba(20,20,20,0.8);
+      padding: 22px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
     }
-    nav .logo {
-      font-size: 1.8rem;
-      font-weight: bold;
-      text-shadow: 0 0 10px cyan;
+
+    header img {
+      width: 150px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(0,150,255,0.5);
     }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 25px;
+
+    header h1 {
+      font-size: 2.8rem;
+      margin: 0;
+      color: #ff3b3b;
+      text-shadow: 0 0 25px rgba(255,0,0,0.6);
     }
-    nav ul li a {
-      color: white;
+
+    header subh1 {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    nav {
+      background: rgba(30,30,30,0.85);
+      padding: 14px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav a {
+      color: #ff4d4d;
+      margin: 0 15px;
       text-decoration: none;
       font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    /* 🔥 Hero Section with Light Sweep */
+    .hero {
+      height: 340px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      text-align: center;
+      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4") center/cover;
+      position: relative;
+      color: #fff;
+      text-shadow: 3px 3px 8px #000;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+      animation: lightMove 6s infinite;
+    }
+
+    @keyframes lightMove {
+      0% { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(20,20,20,0.85);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+    }
+
+    .section h2 {
+      color: #ff4646;
+      margin-top: 0;
+    }
+
+    .play-btn {
+      display: block;
+      background: #ff3b3b;
+      color: #fff;
+      padding: 14px 20px;
+      margin: 20px auto;
+      width: 220px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
       transition: 0.3s;
     }
-    nav ul li a:hover {
-      color: cyan;
-      text-shadow: 0 0 10px cyan;
+
+    .play-btn:hover {
+      transform: scale(1.05);
+      background: #ff5c5c;
     }
 
-    /* ===== PREMIUM HEADER BANNER ===== */
-    .banner {
+    .footer {
       text-align: center;
-      padding: 100px 20px 60px;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
-      position: relative;
-      z-index: 10;
-    }
-    .banner img {
-      width: 250px;
-      filter: drop-shadow(0 0 25px cyan);
-    }
-    .banner h1 {
-      margin-top: 20px;
-      font-size: 3rem;
-      font-weight: 900;
-      text-shadow: 0 0 20px #00eaff;
-    }
-
-    /* ===== ON AIR BLINKING EFFECT ===== */
-    .onair {
-      margin-top: 15px;
-      font-size: 1.6rem;
-      font-weight: bold;
-      color: red;
-      text-shadow: 0 0 15px red;
-      animation: blink 1s infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    /* ===== SOUND WAVE ANIMATION ===== */
-    .soundwave {
-      margin: 30px auto 0;
-      width: 200px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .bar {
-      width: 10px;
-      background: cyan;
-      animation: wave 1s infinite ease-in-out;
-      border-radius: 6px;
-      filter: drop-shadow(0 0 10px cyan);
-    }
-    .bar:nth-child(1){ height: 20px; animation-delay: 0s; }
-    .bar:nth-child(2){ height: 40px; animation-delay: 0.2s; }
-    .bar:nth-child(3){ height: 60px; animation-delay: 0.4s; }
-    .bar:nth-child(4){ height: 40px; animation-delay: 0.6s; }
-    .bar:nth-child(5){ height: 20px; animation-delay: 0.8s; }
-
-    @keyframes wave {
-      0%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(2.2); }
-    }
-
-    /* ===== PLAYER BOX ===== */
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    .player-box {
-      background: rgba(0,0,0,0.7);
-      padding: 40px;
-      border-radius: 25px;
-      margin-top: 40px;
-      box-shadow: 0 0 45px rgba(0,150,255,0.4);
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    audio {
-      width: 100%;
-      margin-top: 20px;
-      filter: drop-shadow(0 0 10px cyan);
-    }
-
-    footer {
-      margin-top: 60px;
       padding: 25px;
-      text-align: center;
-      background: rgba(0,0,0,0.65);
-      position: relative;
-      z-index: 10;
+      color: #888;
+      margin-top: 40px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(5px);
     }
 
+    /* 📱 FULL MOBILE RESPONSIVE FIX */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header img {
+        width: 110px;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 10px;
+        font-size: 1rem;
+      }
+
+      .hero {
+        height: 260px;
+        font-size: 1.4rem;
+        padding: 10px;
+      }
+
+      .section {
+        margin: 20px 10px;
+      }
+
+      .play-btn {
+        width: 180px;
+      }
+
+      audio {
+        width: 100% !important;
+      }
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- NAVIGATION -->
-  <nav>
-    <div class="logo">Euro Tamil Radio</div>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
-  </nav>
-
-  <!-- PREMIUM BANNER -->
-  <section class="banner">
-    <img src="https://i.imgur.com/ZK6w8YB.png" alt="Radio Logo" />
-    <h1>ஐரோப்பாவின் இதயம் துடிக்கும் தமிழ் வானொலி</h1>
-    <div class="onair">🔴 ON AIR</div>
-
-    <!-- SOUNDWAVE ANIMATION -->
-    <div class="soundwave">
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-      <div class="bar"></div>
-    </div>
-  </section>
-
-  <!-- PLAYER SECTION -->
-  <div class="container">
-    <div class="player-box" id="home">
-      <h2>🔊 LIVE STREAM</h2>
-      <p>உங்கள் பிரியமான தமிழ் வானொலி இங்கே</p>
-
-      <audio controls>
-        <source src="http://192.168.1.77:8000/stream" type="audio/mpeg" />
-        உங்கள் browser audio player ஐ ஆதரிக்கவில்லை.
-      </audio>
-    </div>
+<header>
+  <img src="https://raw.githubusercontent.com/amrliveca-source/eurotamilradio/refs/heads/main/images/WhatsApp%20Image%202025-12-05%20at%2023.59.58.jpeg" alt="EuroTamil Radio Logo">
+  <div>
+    <h1>EuroTamil Radio</h1>
+    <subh1>Voice of Europe — Tamil 24/7</subh1>
   </div>
+</header>
 
-  <footer>
-    © 2025 Euro Tamil Radio — All Rights Reserved
-  </footer>
+<nav>
+  <a href="#home">முகப்பு</a>
+  <a href="#programs">நிரல்கள்</a>
+  <a href="#team">எங்கள் குழு</a>
+  <a href="#contact">தொடர்பு</a>
+</nav>
+
+<div class="hero">உலகத் தமிழர்களின் இதயத்துடிப்பு – EuroTamil Radio</div>
+
+<div class="section" id="home">
+  <h2>வரவேற்பு</h2>
+  <p>EuroTamil Radio — ஐரோப்பாவின் முன்னணி ஆன்லைன் தமிழ் வானொலி. இசை, செய்திகள், பேட்டிகள், கலாச்சார நிகழ்ச்சிகள் என 24/7 ஒலிபரப்பு.</p>
+
+  <a href="#" class="play-btn" id="live-btn">▶ LIVE RADIO</a>
+
+  <audio id="radio-player"
+         controls
+         style="width:100%; margin-top:20px;"
+         src="http://192.168.1.77:8000/stream">
+  </audio>
+</div>
+
+<div class="section" id="programs">
+  <h2>நிரல்கள்</h2>
+  <ul>
+    <li>தரிசனம்</li>
+    <li>காலை அமுதம்</li>
+    <li>வணக்கம் ஐரோப்பா</li>
+    <li>இசை துளிகள்</li>
+    <li>கதையும் கருத்தும்</li>
+    <li>இரவின் மடியில்</li>
+  </ul>
+</div>
+
+<div class="section" id="team">
+  <h2>எங்கள் குழு</h2>
+  <p>RJ-க்கள், தொழில்நுட்ப அணிகள் — ஒன்றிணைந்து உருவாக்கும் தரமான உலகத் தமிழ் வானொலி.</p>
+</div>
+
+<div class="section" id="contact">
+  <h2>தொடர்பு</h2>
+  <p>Email: eurotamilmedia@gmail.com</p>
+  <p>WhatsApp: +1 647-293-7712</p>
+</div>
+
+<div class="footer">
+  © 2025 EuroTamil Radio — All Rights Reserved
+</div>
+
+<script>
+  const audio = document.getElementById('radio-player');
+  const btn   = document.getElementById('live-btn');
+
+  btn.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = "⏸ LIVE RADIO";
+    } else {
+      audio.pause();
+      btn.textContent = "▶ LIVE RADIO";
+    }
+  });
+</script>
 
 </body>
 </html>
